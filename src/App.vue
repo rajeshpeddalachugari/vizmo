@@ -1,17 +1,18 @@
 <script>
-  import HelloWorld from "./components/Dashboard.vue";
+  import Dashboard from "./components/Dashboard.vue";
   export default {
     components: {
-      HelloWorld: HelloWorld,
+      Dashboard: Dashboard,
     },
   };
 </script>
 
 <template>
-  <HelloWorld></HelloWorld>
+  <Dashboard></Dashboard>
 </template>
 
 <style>
+  @import url("./w3.css");
   /* #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
