@@ -1,24 +1,30 @@
+<template>
+  <div class="w3-container w3-margin">
+    <Header></Header>
+    <Search></Search>
+    <grid></grid>
+    <pagination></pagination>
+  </div>
+</template>
 <script>
-  import Dashboard from "./components/Dashboard.vue";
+  import pagination from "./components/Pagination.vue";
+  import Modal from "./components/Modal.vue";
+  import Header from "./components/Header.vue";
+  import Search from "./components/Search.vue";
+  import Grid from "./components/Grid.vue";
   export default {
     components: {
-      Dashboard: Dashboard,
+      pagination,
+      Modal,
+      Header,
+      Search,
+      Grid,
+    },
+    created() {
+      this.$store.dispatch("getEmployees");
     },
   };
 </script>
-
-<template>
-  <Dashboard></Dashboard>
-</template>
-
 <style>
   @import url("./w3.css");
-  /* #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  } */
 </style>

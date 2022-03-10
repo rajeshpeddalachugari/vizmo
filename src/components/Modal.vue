@@ -2,7 +2,7 @@
   export default {
     props: {
       show: Boolean,
-      userItem: Object,
+      checkInDetails: Object,
     },
   };
 </script>
@@ -14,22 +14,28 @@
         <div class="modal-container">
           <div class="w3-container">
             <header class="w3-container w3-border">
-              <h2>{{ userItem.name }} : Checkins</h2>
+              <h2>{{ checkInDetails.name }} : Checkins</h2>
             </header>
-            <div v-for="checkin in userItem.checkins" class="w3-border">
-              <header class="w3-container w3-light-grey">
-                <h5>{{ checkin.location }}</h5>
-              </header>
-              <div class="w3-container">
-                <p>
-                  Time :
-                  {{ new Date(checkin.checkin) }}
-                </p>
-                <hr />
-                <p>Purpose : {{ checkin.purpose }}</p>
-                <br />
+            <div v-if="checkInDetails.checkins.length">
+              <div v-for="checkin in checkInDetails.checkins" class="w3-border">
+                <header class="w3-container w3-light-grey">
+                  <h5>{{ checkin.location }}</h5>
+                </header>
+                <div class="w3-container">
+                  <p>
+                    Time :
+                    {{ new Date(checkin.checkin) }}
+                  </p>
+                  <hr />
+                  <p>Purpose : {{ checkin.purpose }}</p>
+                  <br />
+                </div>
               </div>
             </div>
+            <div v-else class="w3-container w3-border">
+              <h5>Not checked in yet</h5>
+            </div>
+
             <div>
               <button
                 class="w3-button w3-right w3-white w3-border w3-margin-top"
@@ -43,28 +49,6 @@
       </div>
     </div>
   </Transition>
-  <!-- <div v-show="show" id="id01" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom">
-      <header class="w3-container w3-blue">
-        <span
-          onclick="document.getElementById('id01').style.display='none'"
-          class="w3-button w3-blue w3-xlarge w3-display-topright"
-          >&times;</span
-        >
-        <h2>Header</h2>
-      </header>
-      <div class="w3-container">lorem ipsum</div>
-
-      <div class="w3-container w3-light-grey w3-padding">
-        <button
-          class="w3-button w3-right w3-white w3-border"
-          onclick="document.getElementById('id01').style.display='none'"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <style>
@@ -107,15 +91,6 @@
   .modal-default-button {
     float: right;
   }
-
-  /*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
   .modal-enter-from {
     opacity: 0;

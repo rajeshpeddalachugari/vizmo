@@ -63,25 +63,6 @@
 
 <script>
   export default {
-    props: {
-      maxVisibleButtons: {
-        type: Number,
-        required: false,
-        default: 3,
-      },
-      totalPages: {
-        type: Number,
-        required: true,
-      },
-      perPage: {
-        type: Number,
-        required: true,
-      },
-      currentPage: {
-        type: Number,
-        required: true,
-      },
-    },
     computed: {
       startPage() {
         // When on the first page
@@ -91,14 +72,7 @@
 
         // When on the last page
         if (this.currentPage === this.totalPages) {
-          //return this.totalPages - this.maxVisibleButtons;
-          const start = this.totalPages - (this.maxVisibleButtons - 1);
-
-          if (start === 0) {
-            return 1;
-          } else {
-            return start;
-          }
+          return this.totalPages - this.maxVisibleButtons;
         }
 
         // When inbetween
@@ -106,7 +80,6 @@
       },
       pages() {
         const range = [];
-
         for (
           let i = this.startPage;
           i <=
@@ -121,7 +94,6 @@
             isDisabled: i === this.currentPage,
           });
         }
-
         return range;
       },
       endPage() {
@@ -136,22 +108,31 @@
       isInLastPage() {
         return this.currentPage === this.totalPages;
       },
+      currentPage() {
+        return this.$store.state.currentPage;
+      },
+      maxVisibleButtons() {
+        return 3;
+      },
+      totalPages() {
+        return this.$store.getters.totalPages;
+      },
     },
     methods: {
       onClickFirstPage() {
-        this.$emit("pagechanged", 1);
+        this.$store.dispatch("getEmployeesByPage", 1);
       },
       onClickPreviousPage() {
-        this.$emit("pagechanged", this.currentPage - 1);
+        this.$store.dispatch("getEmployeesByPage", this.currentPage - 1);
       },
       onClickPage(page) {
-        this.$emit("pagechanged", page);
+        this.$store.dispatch("getEmployeesByPage", page);
       },
       onClickNextPage() {
-        this.$emit("pagechanged", this.currentPage + 1);
+        this.$store.dispatch("getEmployeesByPage", this.currentPage + 1);
       },
       onClickLastPage() {
-        this.$emit("pagechanged", this.totalPages);
+        this.$store.dispatch("getEmployeesByPage", this.totalPages);
       },
     },
   };
